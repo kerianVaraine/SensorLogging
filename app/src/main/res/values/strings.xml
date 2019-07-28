@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SensorLogging</string>
+        //magnetometer stuff
+    <string name="magnetometer_title">Magenetometer calibrated</string>
+    <string name="magX">magX: %1$.2f</string>
+    <string name="magY">magY: %1$.2f</string>
+    <string name="magZ">magZ: %1$.2f</string>
+    <string name="unmagnetometer_title">Magenetometer uncalibrated</string>
+    <string name="uMagX">UmagX: %1$.2f</string>
+    <string name="uMagY">UmagY: %1$.2f</string>
+    <string name="uMagZ">UmagZ: %1$.2f</string>
+</resources>
