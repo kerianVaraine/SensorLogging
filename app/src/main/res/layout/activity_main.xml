@@ -7,7 +7,47 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/Heading"
+        android:id="@+id/ncMagY"
+        android:layout_width="93dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/ncMagY"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/magZ"
+        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintStart_toEndOf="@+id/magX"
+        app:layout_constraintTop_toBottomOf="@+id/ncMag" />
+
+    <TextView
+        android:id="@+id/ncMagZ"
+        android:layout_width="104dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/ncMagZ"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toEndOf="@+id/ncMagY"
+        app:layout_constraintTop_toTopOf="@+id/ncMagY" />
+
+    <TextView
+        android:id="@+id/ncMagX"
+        android:layout_width="98dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/ncMagX"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toStartOf="@+id/ncMagY"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ncMagY" />
+
+    <TextView
+        android:id="@+id/mag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,16 +64,17 @@
 
     <TextView
         android:id="@+id/magY"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="29dp"
         android:layout_marginStart="8dp"
 
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="@string/magY"
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toStartOf="@+id/magZ"
         app:layout_constraintStart_toEndOf="@+id/magX"
-        app:layout_constraintTop_toBottomOf="@+id/Heading" />
+        app:layout_constraintTop_toBottomOf="@+id/mag" />
 
     <TextView
         android:id="@+id/magZ"
@@ -43,10 +84,11 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="@string/magZ"
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/magY"
-        app:layout_constraintTop_toBottomOf="@+id/Heading" />
+        app:layout_constraintTop_toBottomOf="@+id/mag" />
 
     <TextView
         android:id="@+id/magX"
@@ -56,8 +98,131 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="@string/magX"
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toStartOf="@+id/magY"
         app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Heading" />
+        app:layout_constraintTop_toBottomOf="@+id/mag" />
+
+    <TextView
+        android:id="@+id/ncMag"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/ncmagnetometer_title"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/magY" />
+
+    <TextView
+        android:id="@+id/g-title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/gyro_title"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ncMagY" />
+
+    <TextView
+        android:id="@+id/gX"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/gX"
+        app:layout_constraintEnd_toStartOf="@+id/gY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/g-title" />
+
+    <TextView
+        android:id="@+id/gY"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/gY"
+        app:layout_constraintEnd_toStartOf="@+id/gZ"
+        app:layout_constraintStart_toEndOf="@+id/gX"
+        app:layout_constraintTop_toBottomOf="@+id/g-title" />
+
+    <TextView
+        android:id="@+id/gZ"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/gZ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gY"
+        app:layout_constraintTop_toBottomOf="@+id/g-title" />
+
+    <TextView
+        android:id="@+id/gyro_title_uncalibrated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/gyro_title_uncalibrated"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gY" />
+
+    <TextView
+        android:id="@+id/ugX"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/ugX"
+        app:layout_constraintEnd_toStartOf="@+id/ugY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gyro_title_uncalibrated" />
+
+    <TextView
+        android:id="@+id/ugY"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/ugY"
+        app:layout_constraintEnd_toStartOf="@+id/ugZ"
+        app:layout_constraintStart_toEndOf="@+id/ugX"
+        app:layout_constraintTop_toBottomOf="@+id/gyro_title_uncalibrated" />
+
+    <TextView
+        android:id="@+id/ugZ"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/ugZ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ugY"
+        app:layout_constraintTop_toBottomOf="@+id/gyro_title_uncalibrated" />
+
+    <Button
+        android:id="@+id/saveInstance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/save_instance"
+        android:onClick="saveLogToFile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

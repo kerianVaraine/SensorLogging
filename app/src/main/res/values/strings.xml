@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">SensorLogging</string>
         //magnetometer stuff
-    <string name="magnetometer_title">Magenetometer calibrated</string>
-    <string name="magX">magX: %1$.2f</string>
-    <string name="magY">magY: %1$.2f</string>
-    <string name="magZ">magZ: %1$.2f</string>
-    <string name="unmagnetometer_title">Magenetometer uncalibrated</string>
-    <string name="uMagX">UmagX: %1$.2f</string>
-    <string name="uMagY">UmagY: %1$.2f</string>
-    <string name="uMagZ">UmagZ: %1$.2f</string>
+    <string name="magnetometer_title">Magenetometer calibrated\n(micro-Tesla (uT))</string>
+    <string name="magX">magX: %1$.4f</string>
+    <string name="magY">magY: %1$.4f</string>
+    <string name="magZ">magZ: %1$.4f</string>
+    <string name="ncmagnetometer_title">Magenetometer uncalibrated\n(micro-Tesla (uT))</string>
+    <string name="ncMagX">ncMagX: %1$.4f</string>
+    <string name="ncMagY">ncMagY: %1$.4f</string>
+    <string name="ncMagZ">ncMagZ: %1$.4f</string>
+    <string name="gyro_title">Gyroscope - calibrated (rad/s)</string>
+    <string name="gX">gX: %1$.4f</string>
+    <string name="gY">gY: %1$.4f</string>
+    <string name="gZ">gZ: %1$.4f</string>
+    <string name="gyro_title_uncalibrated">Gyroscope - uncalibrated (rad/s)</string>
+    <string name="ugX">u-gX: %1$4f</string>
+    <string name="ugY">u-gY: %1$.4f</string>
+    <string name="ugZ">u-gZ: %1$.4f</string>
+    <string name="save_instance">Save instance</string>
+
 </resources>
