@@ -19,6 +19,9 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.Instant;
+
+import static java.time.Instant.now;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -42,8 +45,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     File externalStorageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
     String FILENAME = "sensorLog.csv";
     File outputlog = new File(externalStorageDirectory, FILENAME);
-    float[] arr;
-    String sensorName;
+    float[] magLog = new float[4];
+    float[] ucMagLog = new float[4];
+    float[] ucGyroLog = new float[4];
+    float[] gyroLog = new float[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +104,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        arr = event.values;
-
         //multiple sensors being listened to, find out which one it is and do something.
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            sensorName = "Magnetomenter";
+            magLog = event.values;
             magX = event.values[0];
             t_x.setText(getResources().getString(R.string.magX, magX));
             magY = event.values[1];
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             t_z.setText(getResources().getString(R.string.magZ, magZ));
 
         } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED) {
-            sensorName = "UC-Magnetomenter";
+            ucMagLog = event.values;
             ncMagX = event.values[0];
             t_ncx.setText(getResources().getString(R.string.ncMagX, ncMagX));
             ncMagY = event.values[1];
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         } else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            sensorName = "Gyroscope";
+            gyroLog = event.values;
             gX = event.values[0];
             t_gX.setText((getResources().getString(R.string.gX, gX)));
             gY = event.values[1];
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         } else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE_UNCALIBRATED) {
-            sensorName = "UC-Gyroscope";
+            ucGyroLog = event.values;
             ugX = event.values[0];
             t_ugX.setText((getResources().getString(R.string.ugX, ugX)));
             ugY = event.values[1];
@@ -147,11 +150,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-    public void saveInstanceData(String sensorName, float[] input) throws IOException {
+    public void saveLogToFile(View view) {
+        String FILENAME = "sensor_data.csv";
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         } else {
-            String entry = sensorName + ", " + System.currentTimeMillis() + ", " + input[0] + ", " + input[1] + ", " + input[3] + "\n";
+            String entry = createLogEntry();
             try {
                 FileOutputStream out = openFileOutput(FILENAME, Context.MODE_APPEND);
                 out.write(entry.getBytes());
@@ -162,19 +166,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    public void saveLogToFile(View view) {
-        String FILENAME = "magno_data.csv";
-        String entry = magX + "," + magY + "," + magZ + "\n";
+//    public void saveLogToFile(View view) {
+//        String FILENAME = "magno_data.csv";
+//        String entry = createLogEntry();
+//
+//        //append entry to csv file
+//        try {
+//            FileOutputStream out = openFileOutput(FILENAME, Context.MODE_APPEND);
+//            out.write( entry.getBytes() );
+//            out.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        //append entry to csv file
-        try {
-            FileOutputStream out = openFileOutput(FILENAME, Context.MODE_APPEND);
-            out.write( entry.getBytes() );
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String createLogEntry() {
+        Instant t = now();
+        return
+                "magnetometer, " + t  + ", " + magLog[0] + ", " + magLog[1] + ", " + magLog[2] + "\n"
+                        + "UCmagnetometer, " + t + ", " + ucMagLog[0] + ", " + ucMagLog[1] + ", " + ucMagLog[2] + "\n"
+                        + "Gyroscope, " + t + ", " + gyroLog[0] + ", " + gyroLog[1] + ", " + gyroLog[2] + "\n"
+                        + "UCGyroscope, " + t + ", " + ucGyroLog[0] + ", " + ucGyroLog[1] + ", " + ucGyroLog[2] + "\n";
+
+
+
     }
+
 }
 
 
