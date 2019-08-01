@@ -17,6 +17,8 @@
     <string name="ugX">u-gX: %1$4f</string>
     <string name="ugY">u-gY: %1$.4f</string>
     <string name="ugZ">u-gZ: %1$.4f</string>
-    <string name="save_instance">Save instance</string>
+    <string name="save_instance">Save Log/ 10 seconds</string>
+    <string name="save_instance_time">Log for 1 min</string>
+
 
 </resources>

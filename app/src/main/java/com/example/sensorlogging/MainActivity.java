@@ -18,8 +18,9 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.time.Instant;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.time.Instant.now;
 
@@ -32,12 +33,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //Non Calibrated Magno stuff
     private TextView t_ncx, t_ncy, t_ncz;
     private float ncMagX, ncMagY, ncMagZ;
+
+
+
+
+
     //Gyroscope
     private TextView t_gX, t_gY, t_gZ;
     private float gX, gY, gZ;
     //Gyroscope -uncalibrated
     private TextView t_ugX, t_ugY, t_ugZ;
     private float ugX, ugY, ugZ;
+
+
 
     //Log writing
 
@@ -49,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     float[] ucMagLog = new float[4];
     float[] ucGyroLog = new float[4];
     float[] gyroLog = new float[4];
+    boolean logActivate = false;
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +88,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
-
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         Sensor magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         Sensor ncMagneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED);
         Sensor gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         Sensor ucGyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE_UNCALIBRATED);
-
 
         if (magneticField != null) {
             sensorManager.registerListener(this, magneticField, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
@@ -92,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         sensorManager.registerListener(this, gyro, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
         sensorManager.registerListener(this, ucGyro, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
-
-
     }
 
     @Override
@@ -104,6 +111,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        //Set Bool to activate save to log, set timer to change bool when 10 seconds up/
+        if(logActivate){
+            saveLogToFile();
+        }
+
         //multiple sensors being listened to, find out which one it is and do something.
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             magLog = event.values;
@@ -143,6 +156,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             ugZ = event.values[2];
             t_ugZ.setText((getResources().getString(R.string.ugZ, ugZ)));
         }
+
+
     }
 
     @Override
@@ -150,8 +165,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-    public void saveLogToFile(View view) {
-        String FILENAME = "sensor_data.csv";
+    public void startLoggingToFile(View view) {
+        logActivate = true;
+        TimerTask stop = new TimerTask() {
+            @Override
+            public void run() {
+                logActivate = false;
+            }
+        };
+        timer.schedule(stop, 10000, 25);
+    }
+
+    public void saveLogToFile() {
+//        String FILENAME = "sensor_data.csv";
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         } else {
@@ -166,19 +192,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-//    public void saveLogToFile(View view) {
-//        String FILENAME = "magno_data.csv";
-//        String entry = createLogEntry();
-//
-//        //append entry to csv file
-//        try {
-//            FileOutputStream out = openFileOutput(FILENAME, Context.MODE_APPEND);
-//            out.write( entry.getBytes() );
-//            out.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public String createLogEntry() {
         Instant t = now();
@@ -190,6 +203,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
 
+    }
+
+    public void saveLogForOneMinute(View view){
+        logActivate = true;
+        TimerTask stop = new TimerTask() {
+            @Override
+            public void run() {
+                logActivate = false;
+            }
+        };
+        timer.schedule(stop, 60000, 25);
     }
 
 }
